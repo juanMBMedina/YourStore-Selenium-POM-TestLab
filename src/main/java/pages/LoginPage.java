@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-import static utils.WebDriverManager.getDriver;
+import static utils.DriverFactory.getDriver;
 
 @AllArgsConstructor
 public class LoginPage{

@@ -8,7 +8,7 @@ import pages.LoginPage;
 
 import static constants.HomeConstant.ALERT_MESSAGE;
 import static constants.HomeConstant.UNSUCCESSFULL_MESSAGE;
-import static utils.WebDriverManager.getDriver;
+import static utils.DriverFactory.getDriver;
 
 
 public class LoginSteps {
