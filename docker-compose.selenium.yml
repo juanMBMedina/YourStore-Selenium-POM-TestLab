@@ -1,0 +1,24 @@
+services:
+  cypress:
+    container_name: cypress
+    image: cypress
+    build:
+      context: . 
+      dockerfile: ./dockerfiles/Dockerfile.cypress
+    working_dir: /e2e
+    volumes:
+      - cypress_src:/e2e
+    environment:
+      SUITE: loginUserSuite
+      BROWSER: chrome
+    networks:
+      - project-network
+
+volumes:
+  cypress_src:
+    name: cypress_src
+    external: true
+
+networks:
+  project-network:
+    external: true
