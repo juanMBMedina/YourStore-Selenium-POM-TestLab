@@ -10,7 +10,7 @@ The repository includes:
 - Test cases automated with Selenium WebDriver.
 - Page Object Model structure for reusable and maintainable components.
 - Test execution through Cucumber and JUnit.
-- Serenity BDD integration for detailed reports.
+- Cucumber integration for reports.
 
 ## File Structure
 ```
@@ -37,7 +37,7 @@ The repository includes:
 Ensure you have the following installed:
 - Java 17+
 - Maven 3.8+
-- Chrome or Edge browser (depending on your test setup)
+- Chrome, Edge and Firefox browser
 - IntelliJ IDEA (recommended for development)
 
 ## Getting Started
@@ -55,25 +55,27 @@ mvn clean test
 
 To run tests with a specific browser (e.g., Edge):
 ```bash
-mvn test -Dbrowser=edge
+mvn test -Dbrowser=chrome -Dcucumber.options="--tags @your_store_login_feature"
 ```
 
 Or set the environment variable before running:
 ```bash
 export BROWSER=edge
-mvn test
+export SUITE=@your_store_login_feature
+mvn test -Dbrowser=$BROWSER -Dcucumber.options="--tags $SUITE"
 ```
 
 ## Running in IntelliJ
 
 To run with custom VM options in IntelliJ:
-1. Go to `Run > Edit Configurations`.
+1. Select your runner
+2. Go to `Run > Edit Configurations`.
 2. Add VM options: `-Dbrowser=edge`.
 3. Run your test.
 
 ## Reports
 
-After execution, Serenity generates detailed HTML reports. Find them in:
+After execution, Cucumber generates detailed HTML reports. Find them in:
 ```
 /target/cucumber-reports.html
 ```

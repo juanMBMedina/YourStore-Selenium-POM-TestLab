@@ -22,4 +22,5 @@ public class LoginPage extends BasePage {
         clickOn(LOGIN_BUTTON);
         return new AccountPage(getDriver());
     }
+
 }

@@ -1,10 +1,46 @@
-FROM cypress/included:14.1.0
-WORKDIR /e2e
-COPY package*.json ./
-RUN npm install
-RUN apt-get update && apt-get install -y jq
-COPY run-suite.sh /e2e/run-suite.sh
-RUN chmod +x /e2e/run-suite.sh
+FROM maven:3.9.6-eclipse-temurin-11
 
-ENTRYPOINT ["/bin/bash"]
-CMD ["-c", "echo 'Container are ready. Uses run-suite.sh to run the tests.'"]
+# Install dependencias básicas
+RUN apt-get update && apt-get install -y \
+    wget \
+    curl \
+    gnupg \
+    unzip \
+    software-properties-common \
+    xvfb \
+    libxi6 \
+    libgconf-2-4 \
+    libnss3 \
+    libxss1 \
+    libappindicator1 \
+    fonts-liberation \
+    libatk-bridge2.0-0 \
+    libgtk-3-0 \
+    ca-certificates \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
+# ------------------------------------
+# Install Google Chrome
+# ------------------------------------
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable
+
+# ------------------------------------
+# Install Firefox
+# ------------------------------------
+RUN apt-get update && apt-get install -y firefox
+
+# ------------------------------------
+# Install Microsoft Edge
+# ------------------------------------
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg && \
+    install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/ && \
+    sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list' && \
+    apt-get update && \
+    apt-get install -y microsoft-edge-stable && \
+    rm microsoft.gpg
+
+WORKDIR /app

@@ -1,22 +1,22 @@
 services:
   cypress:
-    container_name: cypress
-    image: cypress
+    container_name: selenium
+    image: selenium
     build:
       context: . 
-      dockerfile: ./dockerfiles/Dockerfile.cypress
-    working_dir: /e2e
+      dockerfile: ./dockerfiles/Dockerfile.selenium
+    working_dir: /app
     volumes:
-      - cypress_src:/e2e
+      - selenium_src:/app
     environment:
-      SUITE: loginUserSuite
+      RUNNER: loginUserSuite
       BROWSER: chrome
     networks:
       - project-network
 
 volumes:
-  cypress_src:
-    name: cypress_src
+  selenium_src:
+    name: selenium_src
     external: true
 
 networks:
