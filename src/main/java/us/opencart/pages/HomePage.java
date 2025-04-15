@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 
 public class HomePage extends BasePage {
-
     private static final By LOGIN = getByContainsText(TOP_NAV_ITEM_FORMAT, "Login");
     private static final By REGISTER = getByContainsText(TOP_NAV_ITEM_FORMAT, "Register");
 
@@ -19,4 +18,9 @@ public class HomePage extends BasePage {
         return new LoginPage(getDriver());
     }
 
+    public RegisterPage goToRegisterPage() {
+        clickOn(MY_ACCOUNT);
+        clickOn(REGISTER);
+        return new RegisterPage(getDriver());
+    }
 }

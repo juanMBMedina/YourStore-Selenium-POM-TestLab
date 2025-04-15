@@ -1,0 +1,22 @@
+{
+  "registerUser": {
+    "firstName": "Jennings",
+    "lastName": "Lynch",
+    "email": "Royce_Stroman@gmail.com",
+    "telephone": "8147805173",
+    "password": "PQt9hsBxu4TZ5xJ",
+    "passwordConfirm": "PQt9hsBxu4TZ5xJ",
+    "subscribe": true,
+    "privacy": true
+  },
+  "registerUserNoPrivacy": {
+    "firstName": "Jennings",
+    "lastName": "Lynch",
+    "email": "Royce_Stroman@gmail.com",
+    "telephone": "8147805173",
+    "password": "PQt9hsBxu4TZ5xJ",
+    "passwordConfirm": "PQt9hsBxu4TZ5xJ",
+    "subscribe": true,
+    "privacy": false
+  }
+}
