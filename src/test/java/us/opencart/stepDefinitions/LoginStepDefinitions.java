@@ -5,19 +5,22 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import us.opencart.models.LoginUser;
+import us.opencart.models.RegisterUser;
 import us.opencart.pages.AccountPage;
 import us.opencart.pages.HomePage;
 import us.opencart.pages.LoginPage;
 import utils.DriverFactory;
+import utils.TestDataLoader;
 
 import static us.opencart.constants.LoginPageConstants.*;
 
 public class LoginStepDefinitions {
 
     // If the page doesn't have a security certificates available
-    HomePage homePage = new HomePage(DriverFactory.getDriverWithInsecureCerts());
-    LoginPage loginPage;
-    AccountPage accPage;
+    private final HomePage homePage = new HomePage(DriverFactory.getDriverWithInsecureCerts());
+    private LoginPage loginPage;
+    private AccountPage accPage;
 
     @Given("the user is on the login page of Your Store")
     public void theUserIsOnTheLoginPageOfYourStore() {
@@ -76,5 +79,10 @@ public class LoginStepDefinitions {
     @Then("the user should see a successful logout message")
     public void theUserShouldSeeASuccessfulLogoutMessage() {
         Assert.assertTrue("\"Logout Message\" is not visible.", accPage.isVisibleText(SUCCESSFULLY_LOGOUT));
+    }
+
+    @Given("the user enters credentials with test file")
+    public void theUserEntersCredentialsWithTestFile() {
+        loginPage.fillForm(TestDataLoader.load("dataLoginFeature.json", "loginExistUser", LoginUser.class));
     }
 }

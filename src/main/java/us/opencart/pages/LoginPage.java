@@ -2,6 +2,7 @@ package us.opencart.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import us.opencart.models.LoginUser;
 
 public class LoginPage extends BasePage {
 
@@ -16,6 +17,11 @@ public class LoginPage extends BasePage {
     public void fillForm(String userName, String userPassword) {
         sendKeys(USER_NAME_FIELD_TEXT, userName);
         sendKeys(USER_PASS_FIELD_TEXT, userPassword);
+    }
+
+    public void fillForm(LoginUser user) {
+        sendKeys(USER_NAME_FIELD_TEXT, user.getEmail());
+        sendKeys(USER_PASS_FIELD_TEXT, user.getPassword());
     }
 
     public AccountPage submitForm() {

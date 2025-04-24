@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class HomePage extends BasePage {
     private static final By LOGIN = getByContainsText(TOP_NAV_ITEM_FORMAT, "Login");
     private static final By REGISTER = getByContainsText(TOP_NAV_ITEM_FORMAT, "Register");
+    private static final By NAV_BAR_ITEM = getByContainsText(NAV_BAR_ITEM_FORMAT, "Register");
 
     public HomePage(WebDriver driver) {
         super(driver);

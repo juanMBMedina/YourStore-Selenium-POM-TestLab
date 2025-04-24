@@ -18,6 +18,7 @@ public abstract class BasePage {
 
     protected static final String CONTAINS_TEXT_FORMAT = "//*[contains(text(),'%s')]";
     protected static final String TOP_NAV_ITEM_FORMAT = "//nav[@id='top']" + CONTAINS_TEXT_FORMAT;
+    protected static final String NAV_BAR_ITEM_FORMAT = "//ul[@class='nav navbar-nav']" + CONTAINS_TEXT_FORMAT;
     protected static final By MSSG_ALERT_DIV = By.className("alert");
     private static final By MSSG_DANGER_DIV = By.className("text-danger");
     protected static final By MY_ACCOUNT = getByContainsText(TOP_NAV_ITEM_FORMAT, "My Account");

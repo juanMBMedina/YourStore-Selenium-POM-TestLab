@@ -17,4 +17,17 @@ public class RegisterUser {
     private Boolean subscribe;
     private Boolean privacy;
 
+    @Override
+    public String toString() {
+        return "RegisterUser{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", password='" + password + '\'' +
+                ", passwordConfirm='" + passwordConfirm + '\'' +
+                ", subscribe=" + subscribe +
+                ", privacy=" + privacy +
+                '}';
+    }
 }
