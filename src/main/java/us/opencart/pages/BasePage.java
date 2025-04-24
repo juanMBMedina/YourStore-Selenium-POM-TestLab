@@ -5,9 +5,12 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import us.opencart.models.SearchItemNavBar;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static us.opencart.constants.AddToCartPageConstants.DEFAULT_VALUE;
 
 
 @Getter
@@ -26,7 +29,7 @@ public abstract class BasePage {
     protected static final By SHOPPING_CART = getByContainsText(TOP_NAV_ITEM_FORMAT, "Shopping Cart");
 
     public static By getByContainsText(String xpathFormat, String containsText) {
-        // Format for: //[contains(text(), '%s')]
+        // Format for: '%s' -> Text
         return By.xpath(String.format(xpathFormat, containsText));
     }
 
@@ -73,5 +76,12 @@ public abstract class BasePage {
     public List<String> getDangerMssgs() {
         return getDriver().findElements(MSSG_DANGER_DIV).stream()
                 .map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    public void selectItemNavBarOption(SearchItemNavBar option){
+        clickOn(getByContainsText(NAV_BAR_ITEM_FORMAT, option.getCategory()));
+        if(!option.getSubcategory().equals(DEFAULT_VALUE)){
+            clickOn(getByContainsText(NAV_BAR_ITEM_FORMAT, option.getSubcategory()));
+        }
     }
 }
