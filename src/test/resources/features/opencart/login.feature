@@ -9,13 +9,13 @@ Feature: User Login to Your Store
 
   @YS-5
   Scenario: Verify the login functionality for a user with valid credentials
-    Given the user enters credentials with username "email122321@gmail.com" and password "clave1"
+    Given the user enters credentials with test file
     When the user submits the login form
     Then the user should see a successful login message
 
   @YS-8
   Scenario: Validate the logout functionality for a user.
-    Given the user enters credentials with username "email122321@gmail.com" and password "clave1"
+    Given the user enters credentials with test file
     And the user submits the login form
     And the user should see a successful login message
     When the user can do logout by Top Bar option
@@ -23,7 +23,7 @@ Feature: User Login to Your Store
 
   @YS-8
   Scenario: Validate the logout functionality for a user.
-    Given the user enters credentials with username "email122321@gmail.com" and password "clave1"
+    Given the user enters credentials with test file
     And the user submits the login form
     And the user should see a successful login message
     When the user can do logout by Right Bar option
@@ -48,5 +48,5 @@ Feature: User Login to Your Store
 
   @YS-13
   Scenario: Validate the error message when the maximum number of login attempts has been reached.
-    When the user sends credentials with username "correo123@gmail2.com" and password "wrongpass" for 10 attempts
+    When the user sends credentials with username "email123123@gmail.com" and password "wrongpass" for 10 attempts
     Then the user should see an error message indicating that the maximum number of login attempts has been reached
