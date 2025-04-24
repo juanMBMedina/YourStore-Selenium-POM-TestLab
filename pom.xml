@@ -5,9 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.basic.selenium</groupId>
-    <artifactId>BasicWebAutomationSelenium</artifactId>
+    <artifactId>YourStore-Selenium-POM-TestLab</artifactId>
     <version>1.0-SNAPSHOT</version>
-
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -91,7 +90,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>YourStore</projectName>
+                            <projectName>YourStore-Selenium-POM-TestLab</projectName>
                             <jsonFiles>
                                 <param>${project.build.directory}/cucumber-reports/cucumber.json</param>
                             </jsonFiles>

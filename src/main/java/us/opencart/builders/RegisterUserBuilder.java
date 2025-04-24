@@ -9,6 +9,9 @@ public class RegisterUserBuilder {
 
     private static final String EMAIL_DOMAIN = "@opencart.com";
 
+    private RegisterUserBuilder() {
+    }
+
     public static RegisterUser registerAnUser(boolean privacyStatus, boolean subscribeStatus) {
         Faker faker = new Faker();
 

@@ -1,9 +1,12 @@
 package us.opencart.constants;
 
-import java.util.List;
 import java.util.Map;
 
 public class RegisterPageConstants {
+
+    private RegisterPageConstants() {
+    }
+
     public static final String SUCCESS_REGISTER = "Congratulations! Your new account has been successfully created!";
     public static final String USER_EXIST = "Warning: E-Mail Address is already registered!";
     public static final String WITHOUT_PRIVACY = "Warning: You must agree to the Privacy Policy!";

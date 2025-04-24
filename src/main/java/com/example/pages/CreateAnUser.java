@@ -8,6 +8,9 @@ import static io.restassured.RestAssured.given;
 public class CreateAnUser {
     private static final String BASE_PATH = "/users";
 
+    private CreateAnUser() {
+    }
+
     public static Response withInfo(CreateAnUserBack userBack){
         return given()
                 .header("Content-Type", "application/json")

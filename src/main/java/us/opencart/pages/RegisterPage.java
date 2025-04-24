@@ -32,7 +32,7 @@ public class RegisterPage extends BasePage {
         selectOptionCheckBox(SELECT_PRIVACY_POLICY, dataUser.getPrivacy());
     }
 
-    private void selectSubscribe(Boolean status) {
+    private void selectSubscribe(boolean status) {
         if (status) {
             clickOn(SELECT_SUBSCRIBE_YES);
         } else {

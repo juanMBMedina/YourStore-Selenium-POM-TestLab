@@ -1,6 +1,7 @@
 package utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import us.opencart.exceptions.TestDataLoadException;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,9 @@ import java.util.Map;
 public class TestDataLoader {
 
     private static final String DEFAULT_PATH = "src/test/resources/testdata/";
+
+    private TestDataLoader() {
+    }
 
     /**
      * Loads an object from a JSON file using a key inside a map.
@@ -34,7 +38,7 @@ public class TestDataLoader {
 
             return data.get(key);
         } catch (IOException e) {
-            throw new RuntimeException("Error loading test data from " + fileName, e);
+            throw new TestDataLoadException("Error loading test data from " + fileName, e);
         }
     }
 }
