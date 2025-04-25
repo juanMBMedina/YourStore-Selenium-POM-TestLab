@@ -7,11 +7,13 @@ import org.junit.Assert;
 import us.opencart.constants.AddToCartPageConstants;
 import us.opencart.models.SearchItemNavBar;
 import us.opencart.pages.HomePage;
+import us.opencart.pages.WishListPage;
 import utils.DriverFactory;
 
 public class AddToCartStepDefinitions {
     // If the page doesn't have a security certificates available
     private final HomePage homePage = new HomePage(DriverFactory.getDriverWithInsecureCerts());
+    private WishListPage wishListPage;
     private String itemName;
 
     @Given("the user searches for an item in the navigation bar")
@@ -25,10 +27,26 @@ public class AddToCartStepDefinitions {
         homePage.clickOnComparisonButton(itemName);
     }
 
+    @When("the user clicks the {string} link for the item")
+    public void theUserClicksTheLinkForTheItem(String option) {
+        homePage.clickOnItemOption(itemName, option);
+    }
+
     @Then("the user should see a successful comparison item message")
     public void theUserShouldSeeASuccessfulComparisonItemMessage() {
-        String expectedText = String.format(AddToCartPageConstants.COMPARISON_MESSAGE_FORMAT, itemName);
-        Assert.assertTrue("Alert Text: " + homePage.getAlertText() + " doesn't have the text: " + expectedText, homePage.getAlertText().contains(expectedText));
+        homePage.validateAlertText(String.format(AddToCartPageConstants.COMPARISON_MESSAGE_FORMAT, itemName));
+    }
+
+    @Then("the user should see a successful item added to the Wish List message")
+    public void theUserShouldSeeASuccessfulItemAddedToTheWishListMessage() {
+        homePage.validateAlertText(String.format(AddToCartPageConstants.WISH_LIST_MESSAGE_FORMAT, itemName));
+    }
+
+    @Then("the user should see the selected item in the Wish List")
+    public void theUserShouldSeeTheSelectedItemInTheWishList() {
+        wishListPage = homePage.goToWishListPage();
+        Assert.assertTrue("Items table didn't display", wishListPage.isDisplayedItemsTable());
+        Assert.assertTrue(String.format("Item: %s wasn't display", itemName), wishListPage.getTableElementBy(itemName).isDisplayed());
     }
 
 }

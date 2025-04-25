@@ -2,6 +2,7 @@ package us.opencart.pages;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static us.opencart.constants.AddToCartPageConstants.DEFAULT_VALUE;
-
 
 @Getter
 @AllArgsConstructor
@@ -52,6 +52,10 @@ public abstract class BasePage {
 
     public String getAlertText() {
         return getText(MSSG_ALERT_DIV);
+    }
+
+    public void validateAlertText(String expectedText){
+        Assert.assertTrue("Alert Text: " + getAlertText() + " doesn't have the text: " + expectedText, getAlertText().contains(expectedText));
     }
 
     public Boolean isDisplayedAlertMssg() {
