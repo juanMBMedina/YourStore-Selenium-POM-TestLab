@@ -9,14 +9,23 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <java.version>17</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <selenium-version>4.27.0</selenium-version>
         <cucumber-version>7.20.1</cucumber-version>
+        <junit-version>4.13.2</junit-version>
+        <lombok-version>1.18.36</lombok-version>
+        <webdrivermanager-version>5.6.3</webdrivermanager-version>
+        <io.rest-version>5.5.0</io.rest-version>
+        <gson-version>2.11.0</gson-version>
+        <javafaker-version>1.0.2</javafaker-version>
+        <jacoco-version>0.8.11</jacoco-version>
     </properties>
 
     <dependencies>
+        <!-- Selenium dependencies -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -41,64 +50,68 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit-version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.36</version>
+            <version>${lombok-version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.6.3</version>
+            <version>${webdrivermanager-version}</version>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.5.0</version>
+            <version>${io.rest-version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.11.0</version>
+            <version>${gson-version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
+            <version>${javafaker-version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
-            </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.7.0</version>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
                 <executions>
                     <execution>
-                        <id>generate-cucumber-report</id>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
                         <phase>verify</phase>
                         <goals>
-                            <goal>generate</goal>
+                            <goal>report</goal>
                         </goals>
                         <configuration>
-                            <projectName>YourStore-Selenium-POM-TestLab</projectName>
-                            <jsonFiles>
-                                <param>${project.build.directory}/cucumber-reports/cucumber.json</param>
-                            </jsonFiles>
-                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
+                            <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+                            <formats>
+                                <format>HTML</format>
+                                <format>XML</format>
+                            </formats>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+
+
         </plugins>
     </build>
 

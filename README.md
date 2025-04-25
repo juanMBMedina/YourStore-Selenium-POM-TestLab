@@ -53,9 +53,10 @@ To install dependencies and run tests:
 mvn clean test
 ```
 
-To run tests with a specific browser (e.g., Edge):
+To run tests with a specific browser (e.g., Edge) and headless mode true by default:
 ```bash
-mvn test -Dbrowser=chrome -Dcucumber.options="--tags @your_store_login_feature"
+mvn clean verify test -Dbrowser=chrome -Dheadless=true -Dtest=AddToCartRunner
+mvn clean verify test -Dbrowser=chrome -Dheadless=true -Dcucumber.options="--tags @your_store_login_feature"
 ```
 
 Or set the environment variable before running:
@@ -70,8 +71,8 @@ mvn test -Dbrowser=$BROWSER -Dcucumber.options="--tags $SUITE"
 To run with custom VM options in IntelliJ:
 1. Select your runner
 2. Go to `Run > Edit Configurations`.
-2. Add VM options: `-Dbrowser=edge`.
-3. Run your test.
+3. Add VM options: `-Dbrowser=edge` `-Dheadless=true`.
+4. Run your test.
 
 ## Reports
 
