@@ -10,7 +10,7 @@ Feature: User Add Items to Cart in Your Store Page
     And the user submits the login form
     And the user should see a successful login message
 
-  @YS-9
+  @YS-9 @regression_test
   Scenario: Validate the correct display of the product comparison message
     Given the user searches for an item in the navigation bar
       # If the option doesn't have subcategory you must add N/A (default value) text or delete subcategory column
@@ -30,7 +30,7 @@ Feature: User Add Items to Cart in Your Store Page
     Then the user is on the Wish List page
     Then the user should see the selected item in the Wish List
 
-  @YS-11
+  @YS-11 @regression_test
   Scenario Outline: Validate the removal of a favorite product
     And the user searches for an item in the navigation bar
     # If the option doesn't have a subcategory, you must add "N/A" (default value) text or remove the subcategory column
@@ -57,7 +57,7 @@ Feature: User Add Items to Cart in Your Store Page
     Then the user is on the add to Cart Page
     Then the user should see the selected item in the Add to Cart
 
-  @YS-13
+  @YS-13 @regression_test
   Scenario Outline: Verify the product was removed from the shopping cart
     Given the user searches for an item in the navigation bar
       # If the option doesn't have subcategory you must add N/A (default value) text or delete subcategory column

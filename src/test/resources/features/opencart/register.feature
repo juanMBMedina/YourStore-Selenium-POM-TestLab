@@ -7,7 +7,7 @@ Feature: User Register users to Your Store
   Background:
     Given the user is on the registration page of Your Store
 
-  @YS-1
+  @YS-1 @regression_test
   Scenario: Validate correct functionality when a new user is registered
     Given the user can create a random user
     And the user enters the random user's data

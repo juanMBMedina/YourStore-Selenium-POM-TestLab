@@ -7,13 +7,13 @@ Feature: User Login to Your Store
   Background:
     Given the user is on the login page of Your Store
 
-  @YS-5
+  @YS-5 @regression_test
   Scenario: Verify the login functionality for a user with valid credentials
     Given the user enters credentials with test file
     When the user submits the login form
     Then the user should see a successful login message
 
-  @YS-8
+  @YS-8 @regression_test
   Scenario: Validate the logout functionality for a user.
     Given the user enters credentials with test file
     And the user submits the login form
@@ -21,7 +21,7 @@ Feature: User Login to Your Store
     When the user can do logout by Top Bar option
     Then the user should see a successful logout message
 
-  @YS-8
+  @YS-8 @regression_test
   Scenario: Validate the logout functionality for a user.
     Given the user enters credentials with test file
     And the user submits the login form

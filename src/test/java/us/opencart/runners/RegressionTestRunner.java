@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         },
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@your_store_add_to_cart_feature"
+        tags = "@regression_test"
 )
-public class AddToCartRunner {
+public class RegressionTestRunner {
 }
