@@ -46,7 +46,7 @@ Feature: User Login to Your Store
       | emailParamsOff@gmail.com |          |
       |                          | clave1   |
 
-  @YS-13
+  @YS-14
   Scenario: Validate the error message when the maximum number of login attempts has been reached.
     When the user sends credentials with username "email123123@gmail.com" and password "wrongpass" for 10 attempts
     Then the user should see an error message indicating that the maximum number of login attempts has been reached

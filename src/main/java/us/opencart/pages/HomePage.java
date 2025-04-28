@@ -8,12 +8,13 @@ import us.opencart.exceptions.TypeOptionItemException;
 
 public class HomePage extends BasePage {
     private static final String ITEM_CONTAINER_FORMAT = "//div[@class='product-thumb'][.//h4/a[normalize-space(text())='%s']]";
-    private static final String ADD_TO_CART_SINGLE_XPATH = "String.format(CONTAINS_TEXT_FORMAT, 'Add to Cart')";
+    private static final String ADD_TO_CART_SINGLE_XPATH = "//*[contains(text(),'Add to Cart')]";
     private static final String ADD_WISH_LIST_SINGLE_XPATH = "//button[@data-original-title='Add to Wish List']";
     private static final String COMPARISON_SINGLE_XPATH = "//button[@data-original-title='Compare this Product']";
     private static final By LOGIN = getByContainsText(TOP_NAV_ITEM_FORMAT, "Login");
     private static final By REGISTER = getByContainsText(TOP_NAV_ITEM_FORMAT, "Register");
     private static final By WISH_LIST = getByContainsText(TOP_NAV_ITEM_FORMAT, "Wish List");
+    private static final By ADD_TO_CART = getByContainsText(TOP_NAV_ITEM_FORMAT, "Shopping Cart");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -29,6 +30,16 @@ public class HomePage extends BasePage {
         clickOn(MY_ACCOUNT);
         clickOn(REGISTER);
         return new RegisterPage(getDriver());
+    }
+
+    public WishListPage goToWishListPage() {
+        clickOn(WISH_LIST);
+        return new WishListPage(getDriver());
+    }
+
+    public AddToCartPage goToAddToCart() {
+        clickOn(ADD_TO_CART);
+        return new AddToCartPage(getDriver());
     }
 
     private By getAddToCartButtonBy(String itemName) {
@@ -55,11 +66,6 @@ public class HomePage extends BasePage {
         clickOn(getComparisonButtonBy(itemName));
     }
 
-    public WishListPage goToWishListPage() {
-        clickOn(WISH_LIST);
-        return new WishListPage(getDriver());
-    }
-
     public void clickOnItemOption(String itemName, String option) {
         switch (option) {
             case AddToCartPageConstants.COMPARISON_TEXT:
@@ -75,4 +81,5 @@ public class HomePage extends BasePage {
                 throw new TypeOptionItemException(String.format("This option: %s doesn't exist for an item.", option));
         }
     }
+
 }

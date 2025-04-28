@@ -27,20 +27,48 @@ Feature: User Add Items to Cart in Your Store Page
       | Tablets  | N/A         | Samsung Galaxy Tab 10.1 |
     When the user clicks the "Add to Wish List" link for the item
     Then the user should see a successful item added to the Wish List message
+    Then the user is on the Wish List page
     Then the user should see the selected item in the Wish List
 
   @YS-11
   Scenario Outline: Validate the removal of a favorite product
     And the user searches for an item in the navigation bar
     # If the option doesn't have a subcategory, you must add "N/A" (default value) text or remove the subcategory column
-      | category | subcategory | itemName   |
-      | Tablets  | N/A         | <itemName> |
-    And the user clicks the "Add to Wish List" link for the item
+      | category   | subcategory   | itemName   |
+      | <category> | <subcategory> | <itemName> |
+    And the user clicks the "<page>" link for the item
     And the user should see a successful item added to the Wish List message
-    Given the user is on the wish list page
-    When the user clicks the "Remove" link for the item called "<itemName>"
+    Given the user is on the Wish List page
+    When the user clicks the "<action>" link for the item called "<itemName>" in Wish List page
     Then the user should see a message confirming the successful removal from the Wish List
 
     Examples:
-      | itemName                |
-      | Samsung Galaxy Tab 10.1 |
+      | category | subcategory | itemName                | page             | action |
+      | Tablets  | N/A         | Samsung Galaxy Tab 10.1 | Add to Wish List | Remove |
+
+  @YS-12
+  Scenario: Validate product load into the shopping cart
+    Given the user searches for an item in the navigation bar
+      # If the option doesn't have subcategory you must add N/A (default value) text or delete subcategory column
+      | category | subcategory | itemName |
+      | Desktops | Mac         | iMac     |
+    When the user clicks the "Add to Cart" link for the item
+    Then the user should see a successful Add to Cart item message
+    Then the user is on the add to Cart Page
+    Then the user should see the selected item in the Add to Cart
+
+  @YS-13
+  Scenario Outline: Verify the product was removed from the shopping cart
+    Given the user searches for an item in the navigation bar
+      # If the option doesn't have subcategory you must add N/A (default value) text or delete subcategory column
+      | category   | subcategory   | itemName   |
+      | <category> | <subcategory> | <itemName> |
+    When the user clicks the "<page>" link for the item
+    Then the user should see a successful Add to Cart item message
+    Given the user is on the add to Cart Page
+    When the user clicks the "<action>" link for the item called "<itemName>" in Add to Cart page
+    Then the user should see a message confirming the successful removal from the Add to Cart
+
+    Examples:
+      | category | subcategory | itemName | page        | action |
+      | Desktops | Mac         | iMac     | Add to Cart | Remove |
