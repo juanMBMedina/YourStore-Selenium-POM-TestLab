@@ -65,6 +65,10 @@ export BROWSER=edge
 export SUITE=@your_store_login_feature
 mvn test -Dbrowser=$BROWSER -Dcucumber.options="--tags $SUITE"
 ```
+Run sonar-scanner in Local Environment:
+```bash
+sonar-scanner.bat -D"sonar.login=%SONAR_TOKEN%" -D"project.settings=sonar-scanner.properties" -D"sonar.projectBaseDir=."
+```
 
 ## Running in IntelliJ
 
