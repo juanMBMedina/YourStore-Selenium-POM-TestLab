@@ -39,10 +39,12 @@ public class LoginStepDefinitions {
 
     @When("the user sends credentials with username {string} and password {string} for {int} attempts")
     public void theUserSendsCredentialsWithUsernameAndPasswordForAttempts(String userName, String userPassword, Integer attemps) {
-        for (int i = 1; i <= attemps; i++) {
+        int count = 1;
+        do{
             theUserEntersCredentialsWithUsernameAndPassword(userName, userPassword);
             theUserSubmitsTheLoginForm();
-        }
+            count++;
+        }while (count <= attemps && !loginPage.getAlertText().equals(MAX_ATTEMPTS_MESSAGE));
     }
 
     @When("the user can do logout by Top Bar option")
