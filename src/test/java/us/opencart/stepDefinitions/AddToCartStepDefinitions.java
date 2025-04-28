@@ -46,7 +46,22 @@ public class AddToCartStepDefinitions {
     public void theUserShouldSeeTheSelectedItemInTheWishList() {
         wishListPage = homePage.goToWishListPage();
         Assert.assertTrue("Items table didn't display", wishListPage.isDisplayedItemsTable());
-        Assert.assertTrue(String.format("Item: %s wasn't display", itemName), wishListPage.getTableElementBy(itemName).isDisplayed());
+        Assert.assertTrue(String.format("Item: %s wasn't display", itemName), wishListPage.isVisibleInTable(itemName));
+    }
+
+    @Given("the user is on the wish list page")
+    public void theUserIsOnTheWishListPage() {
+        wishListPage = homePage.goToWishListPage();
+    }
+
+    @When("the user clicks the {string} link for the item called {string}")
+    public void theUserClicksTheLinkForTheItemCalled(String option, String itemName) {
+        wishListPage.clickOnItemAction(itemName, option);
+    }
+
+    @Then("the user should see a message confirming the successful removal from the Wish List")
+    public void theUserShouldSeeAMessageConfirmingTheSuccessfulRemovalFromTheWishList() {
+        homePage.validateAlertText(AddToCartPageConstants.WISH_LIST_CHANGED_MESSAGE_FORMAT);
     }
 
 }

@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         },
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@YS-10"//"@your_store_add_to_cart_feature"
+        tags = "@your_store_add_to_cart_feature"
 )
 public class AddToCartRunner {
 }

@@ -74,6 +74,5 @@ public class HomePage extends BasePage {
             default:
                 throw new TypeOptionItemException(String.format("This option: %s doesn't exist for an item.", option));
         }
-
     }
 }

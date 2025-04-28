@@ -29,3 +29,18 @@ Feature: User Add Items to Cart in Your Store Page
     Then the user should see a successful item added to the Wish List message
     Then the user should see the selected item in the Wish List
 
+  @YS-11
+  Scenario Outline: Validate the removal of a favorite product
+    And the user searches for an item in the navigation bar
+    # If the option doesn't have a subcategory, you must add "N/A" (default value) text or remove the subcategory column
+      | category | subcategory | itemName   |
+      | Tablets  | N/A         | <itemName> |
+    And the user clicks the "Add to Wish List" link for the item
+    And the user should see a successful item added to the Wish List message
+    Given the user is on the wish list page
+    When the user clicks the "Remove" link for the item called "<itemName>"
+    Then the user should see a message confirming the successful removal from the Wish List
+
+    Examples:
+      | itemName                |
+      | Samsung Galaxy Tab 10.1 |
