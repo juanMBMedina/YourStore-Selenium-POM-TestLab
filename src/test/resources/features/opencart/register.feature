@@ -30,8 +30,8 @@ Feature: User Register users to Your Store
 
     Examples:
       | firstName | lastName  | email         | telephone  | password | passwordConfirm | subscribe | privacy | param           |
-      |           | lastName1 | asd@gomal.com | 8147805173 | clave1   | clave1          | true      | true    | firstName       |
-      | name1     |           | asd@gomal.com | 8147805173 | clave1   | clave1          | true      | true    | lastName        |
+      |           | lastName1 | asd@gomal.com | 8147805173 | clave1   | clave1          | false     | true    | firstName       |
+      | name1     |           | asd@gomal.com | 8147805173 | clave1   | clave1          | true      | false   | lastName        |
       | name1     | lastName1 |               | 8147805173 | clave1   | clave1          | true      | true    | email           |
       | name1     | lastName1 | asd@gomal.com |            | clave1   | clave1          | true      | true    | telephone       |
       | name1     | lastName1 | asd@gomal.com | 8147805173 |          | clave1          | true      | true    | password        |

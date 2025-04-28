@@ -16,13 +16,11 @@ import static us.opencart.constants.AddToCartPageConstants.DEFAULT_VALUE;
 
 public class Hooks {
     private static final String URL = "http://opencart.abstracta.us/index.php?route=common/home";
-
     private WebDriver driver;
 
     @Before
     public void setUp() {
-        // If the page doesn't have a security certificates available
-        WebDriver driver = DriverFactory.getDriverWithInsecureCerts();
+        WebDriver driver = DriverFactory.getDriver();
         driver.get(URL);
     }
 

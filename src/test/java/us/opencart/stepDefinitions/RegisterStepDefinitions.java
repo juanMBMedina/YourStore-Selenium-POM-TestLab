@@ -24,8 +24,7 @@ import static us.opencart.constants.RegisterPageConstants.WITHOUT_PRIVACY;
 
 public class RegisterStepDefinitions {
     private static final Logger logger = Logger.getLogger(RegisterStepDefinitions.class.getName());
-    // If the page doesn't have a security certificates available
-    private final HomePage homePage = new HomePage(DriverFactory.getDriverWithInsecureCerts());
+    private final HomePage homePage = new HomePage(DriverFactory.getDriver());
     private RegisterUser generatedRegisterUser;
     private RegisterPage registerPage;
 

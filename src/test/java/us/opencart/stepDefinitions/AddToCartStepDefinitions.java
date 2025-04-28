@@ -4,16 +4,18 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import us.opencart.constants.AddToCartPageConstants;
+import us.opencart.exceptions.TypeOptionItemException;
 import us.opencart.models.SearchItemNavBar;
 import us.opencart.pages.AddToCartPage;
 import us.opencart.pages.HomePage;
 import us.opencart.pages.WishListPage;
+import utils.ByUtils;
 import utils.DriverFactory;
 
 public class AddToCartStepDefinitions {
-    // If the page doesn't have a security certificates available
-    private final HomePage homePage = new HomePage(DriverFactory.getDriverWithInsecureCerts());
+    private final HomePage homePage = new HomePage(DriverFactory.getDriver());
     private WishListPage wishListPage;
     private AddToCartPage addToCartPage;
     private String itemName;
@@ -89,5 +91,23 @@ public class AddToCartStepDefinitions {
     @Then("the user should see a message confirming the successful removal from the Add to Cart")
     public void theUserShouldSeeAMessageConfirmingTheSuccessfulRemovalFromTheAddToCart() {
         Assert.assertFalse(String.format("Item: %s was display", itemName), addToCartPage.isNotVisibleInTable(itemName));
+    }
+
+    @Then("the user clicks the {string} link for the item and should see exception option")
+    public void theUserClicksTheLinkForTheItemAndShouldSeeExceptionOption(String option) {
+        Assert.assertThrows(TypeOptionItemException.class, () -> {
+            homePage.clickOnItemOption(itemName, option);
+        });
+    }
+
+    @Then("the user clicks the {string} link for the item called {string} in Add to Cart page and should message error")
+    public void theUserClicksTheLinkForTheItemCalledInAddToCartPageAndShouldMessageError(String option, String itemName) {
+        Assert.assertThrows(TypeOptionItemException.class, () -> {
+            addToCartPage.clickOnItemAction(itemName, option);
+        });
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            ByUtils.combineXpathDescendant(By.xpath("//div"), By.id("alert"));
+        });
+
     }
 }

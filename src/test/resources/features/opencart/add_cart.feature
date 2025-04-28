@@ -72,3 +72,26 @@ Feature: User Add Items to Cart in Your Store Page
     Examples:
       | category | subcategory | itemName | page        | action |
       | Desktops | Mac         | iMac     | Add to Cart | Remove |
+
+  @YS-16
+  Scenario: Validate error message when select wrong option
+    When the user searches for an item in the navigation bar
+    # If the option doesn't have a subcategory, you must add "N/A" (default value) text or remove the subcategory column
+      | category | subcategory | itemName                |
+      | Tablets  | N/A         | Samsung Galaxy Tab 10.1 |
+    Then the user clicks the "Wrong Option" link for the item and should see exception option
+
+  @YS-16
+  Scenario Outline: Validate error message when select wrong option
+    Given the user searches for an item in the navigation bar
+      # If the option doesn't have subcategory you must add N/A (default value) text or delete subcategory column
+      | category   | subcategory   | itemName   |
+      | <category> | <subcategory> | <itemName> |
+    When the user clicks the "<page>" link for the item
+    Then the user should see a successful Add to Cart item message
+    Given the user is on the add to Cart Page
+    Then the user clicks the "<action>" link for the item called "<itemName>" in Add to Cart page and should message error
+
+    Examples:
+      | category | subcategory | itemName | page        | action       |
+      | Desktops | Mac         | iMac     | Add to Cart | Wrong Option |

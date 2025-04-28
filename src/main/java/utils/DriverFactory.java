@@ -4,9 +4,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
@@ -18,22 +18,15 @@ public class DriverFactory {
     private DriverFactory() {
     }
 
-    public static WebDriver getDriverWithInsecureCerts() {
-        return getDriver(true);
-    }
-
-    public static WebDriver getDriverWithoutInsecureCerts() {
-        return getDriver(false);
-    }
-
     public static WebDriver getDriver() {
-        return getDriverWithoutInsecureCerts();
+        String browser = System.getProperty("browser", "chrome").toLowerCase();
+        boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        boolean withCerts = Boolean.parseBoolean(System.getProperty("withoutCerts", "false"));
+        return getDriver(browser, isHeadless, withCerts);
     }
 
-    public static WebDriver getDriver(Boolean withInsecureCerts) {
+    public static WebDriver getDriver(String browser, Boolean isHeadless, Boolean withInsecureCerts) {
         if (driver == null) {
-            String browser = System.getProperty("browser", "chrome").toLowerCase();
-            boolean isHeadless = Boolean.parseBoolean(System.getProperty("headless", "false"));
             switch (browser) {
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();

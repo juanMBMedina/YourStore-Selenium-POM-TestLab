@@ -50,3 +50,7 @@ Feature: User Login to Your Store
   Scenario: Validate the error message when the maximum number of login attempts has been reached.
     When the user sends credentials with username "email123123@gmail.com" and password "wrongpass" for 10 attempts
     Then the user should see an error message indicating that the maximum number of login attempts has been reached
+
+  @YS-15
+  Scenario: Validate the error message when user data is wrong
+    Then the user should see an error exception in the Data Loader

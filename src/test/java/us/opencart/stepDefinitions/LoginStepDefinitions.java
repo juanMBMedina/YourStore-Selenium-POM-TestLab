@@ -5,8 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import us.opencart.exceptions.TestDataLoadException;
 import us.opencart.models.LoginUser;
-import us.opencart.models.RegisterUser;
 import us.opencart.pages.AccountPage;
 import us.opencart.pages.HomePage;
 import us.opencart.pages.LoginPage;
@@ -17,8 +17,7 @@ import static us.opencart.constants.LoginPageConstants.*;
 
 public class LoginStepDefinitions {
 
-    // If the page doesn't have a security certificates available
-    private final HomePage homePage = new HomePage(DriverFactory.getDriverWithInsecureCerts());
+    private final HomePage homePage = new HomePage(DriverFactory.getDriver());
     private LoginPage loginPage;
     private AccountPage accPage;
 
@@ -40,11 +39,11 @@ public class LoginStepDefinitions {
     @When("the user sends credentials with username {string} and password {string} for {int} attempts")
     public void theUserSendsCredentialsWithUsernameAndPasswordForAttempts(String userName, String userPassword, Integer attemps) {
         int count = 1;
-        do{
+        do {
             theUserEntersCredentialsWithUsernameAndPassword(userName, userPassword);
             theUserSubmitsTheLoginForm();
             count++;
-        }while (count <= attemps && !loginPage.getAlertText().equals(MAX_ATTEMPTS_MESSAGE));
+        } while (count <= attemps && !loginPage.getAlertText().equals(MAX_ATTEMPTS_MESSAGE));
     }
 
     @When("the user can do logout by Top Bar option")
@@ -86,5 +85,15 @@ public class LoginStepDefinitions {
     @Given("the user enters credentials with test file")
     public void theUserEntersCredentialsWithTestFile() {
         loginPage.fillForm(TestDataLoader.load("dataLoginFeature.json", "loginExistUser", LoginUser.class));
+    }
+
+    @Then("the user should see an error exception in the Data Loader")
+    public void theUserShouldSeeAnErrorExceptionInTheDataLoader() {
+        Assert.assertThrows(TestDataLoadException.class, () -> {
+            loginPage.fillForm(TestDataLoader.load("wrongDataLoginFeature.json", "loginWrongUser", LoginUser.class));
+        });
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            loginPage.fillForm(TestDataLoader.load("wrongDataLoginFeature.json", "wrong key", LoginUser.class));
+        });
     }
 }

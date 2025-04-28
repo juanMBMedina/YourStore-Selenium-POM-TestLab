@@ -6,8 +6,5 @@ public class TestDataLoadException extends RuntimeException {
         super(message, cause);
     }
 
-    public TestDataLoadException(String message) {
-        super(message);
-    }
 }
 
