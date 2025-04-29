@@ -9,7 +9,7 @@ services:
     volumes:
       - selenium_src:/app
     environment:
-      RUNNER: loginUserSuite
+      SUITE: LoginRunner
       BROWSER: chrome
     networks:
       - project-network
