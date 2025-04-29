@@ -19,10 +19,11 @@ def extractPropertyValue(file, property) {
 def cleanSeleniumTempDir(){
     dir(SELENIUM_DIR) {
         script {
-            echo "Cleaning Selenium temporary directory, excluding node_modules"
+            echo "Cleaning Selenium temporary directory, excluding target"
             sh """
-                rm -rf
+                find . -mindepth 1 -not -name 'target' -exec rm -rf {} +
             """
+
         }
     }
 }
@@ -78,7 +79,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('First: Clean Temporary Directory') {
             steps {
                 cleanSeleniumTempDir()
@@ -101,15 +102,20 @@ pipeline {
             steps {
                 dir(SELENIUM_DIR) {
                     script {
-                        echo "Running Selenium tests for suite: ${params.SUITE} on browser: ${params.BROWSER} check file ./suites.json"
-                        
+                        echo "Running Selenium tests for suite: ${params.SUITE} on browser: ${params.BROWSER}"
                         sh """
-                        docker-compose -f docker-compose.selenium.yml run --rm mvn verify -Dbrowser=${params.BROWSER} -Dheadless=true -DwithoutCerts=true -Dtest=${params.SUITE}
+                          docker-compose -f docker-compose.selenium.yml run --rm selenium \
+                            mvn verify \
+                              -Dbrowser=${params.BROWSER} \
+                              -Dheadless=true \
+                              -DwithoutCerts=true \
+                              -Dtest=${params.SUITE}
                         """
                     }
                 }
             }
         }
+
         stage('Store Selenium Reports') {
             steps {
                 dir(SELENIUM_DIR) {
@@ -117,12 +123,19 @@ pipeline {
                         def reportFolder = 'target/'
                         def src = "./${reportFolder}"
                         def now = sh(script: "date +\"%Y-%m-%d_%H-%M-%S\"", returnStdout: true).trim()
-                        def dest = "${REPORTS_DIR}/${params.PROJECT_NAME}/${reportFolder}_${now}"
+                        def dest = "${REPORTS_DIR}/${params.PROJECT_NAME}/${reportFolder}execution_${now}"
+                        def targetDir = "${BASE_DIR}/${PROJECT_NAME}/target"
                         echo "Copying reports from ${src} to ${dest}"
                         sh """
                             mkdir -p ${dest}
                             cd ${src}
                             cp -r * ${dest}
+                        """
+                        echo "Copying reports from ${src} to ${targetDir}"
+                        sh """
+                            mkdir -p ${targetDir}
+                            cd ${src}
+                            cp -r * ${targetDir}
                         """
                     }
                 }

@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         },
         monochrome = true,
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        tags = "@your_store_login_feature"
+        tags = "@YS-5"//"@your_store_login_feature"
 )
 public class LoginRunner {
 }

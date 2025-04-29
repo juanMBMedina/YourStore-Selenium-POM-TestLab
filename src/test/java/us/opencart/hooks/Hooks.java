@@ -4,6 +4,7 @@ package us.opencart.hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;
+import lombok.Getter;
 import org.openqa.selenium.WebDriver;
 import us.opencart.builders.RegisterUserBuilder;
 import us.opencart.models.RegisterUser;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import static us.opencart.constants.AddToCartPageConstants.DEFAULT_VALUE;
 
+@Getter
 public class Hooks {
     private static final String URL = "http://opencart.abstracta.us/index.php?route=common/home";
     private WebDriver driver;
