@@ -93,7 +93,7 @@ public class LoginStepDefinitions {
             loginPage.fillForm(TestDataLoader.load("wrongDataLoginFeature.json", "loginWrongUser", LoginUser.class));
         });
         Assert.assertThrows(IllegalArgumentException.class, () -> {
-            loginPage.fillForm(TestDataLoader.load("wrongDataLoginFeature.json", "wrong key", LoginUser.class));
+            loginPage.fillForm(TestDataLoader.load("dataLoginFeature.json", "noKey", LoginUser.class));
         });
     }
 }
