@@ -94,6 +94,7 @@ public class DriverFactory {
 
         if (isHeadless) {
             options.addArguments("--headless");
+            options.addArguments("--no-remote");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
