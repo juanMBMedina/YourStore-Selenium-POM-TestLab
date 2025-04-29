@@ -101,6 +101,8 @@ public class DriverFactory {
             options.addArguments("--window-size=1920,1080");
         }
 
+        System.out.println("options = " + options);
+
         return new FirefoxDriver(options);
     }
 
