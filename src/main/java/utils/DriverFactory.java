@@ -8,6 +8,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 import java.io.File;
 import java.time.Duration;
@@ -70,10 +71,10 @@ public class DriverFactory {
 
     private static WebDriver createFirefoxDriver(boolean isHeadless, Boolean withInsecureCerts) {
         WebDriverManager.firefoxdriver().setup();
+        FirefoxProfile profile = new FirefoxProfile();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         configureCommonOptions(firefoxOptions, isHeadless, withInsecureCerts);
-        firefoxOptions.addArguments("-profile");
-        firefoxOptions.addArguments(getUserDataDir("firefox"));
+        firefoxOptions.setProfile(profile);
         return new FirefoxDriver(firefoxOptions);
     }
 
