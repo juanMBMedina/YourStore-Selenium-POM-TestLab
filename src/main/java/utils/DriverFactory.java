@@ -8,6 +8,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 import java.io.File;
 import java.time.Duration;
@@ -17,7 +18,8 @@ public class DriverFactory {
     private static final long MAX_TIME_WAIT = 10;
     private static WebDriver driver;
 
-    private DriverFactory() {}
+    private DriverFactory() {
+    }
 
     public static WebDriver getDriver() {
         if (driver == null) {
@@ -70,6 +72,7 @@ public class DriverFactory {
 
     private static WebDriver createFirefoxDriver(boolean isHeadless, Boolean withInsecureCerts) {
         WebDriverManager.firefoxdriver().setup();
+        FirefoxProfile profile = new FirefoxProfile();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         configureCommonOptions(firefoxOptions, isHeadless, withInsecureCerts);
         firefoxOptions.addArguments("-profile");
@@ -108,13 +111,11 @@ public class DriverFactory {
         if (isHeadless) {
             options.addArguments(HEADLESS_FLAG);
             options.addArguments("--headless=new");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--headless");
             options.addArguments("--disable-gpu");
             options.addArguments("--remote-allow-origins=*");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-logging");
-            options.addArguments("--window-size=1920,1080");
         }
     }
 
