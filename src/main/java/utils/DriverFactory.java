@@ -107,9 +107,14 @@ public class DriverFactory {
         options.setAcceptInsecureCerts(withInsecureCerts);
         if (isHeadless) {
             options.addArguments(HEADLESS_FLAG);
-            options.addArguments("--disable-gpu");
+            options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-gpu");
+            options.addArguments("--remote-allow-origins=*");
+            options.addArguments("--disable-extensions");
+            options.addArguments("--disable-logging");
+            options.addArguments("--window-size=1920,1080");
         }
     }
 
