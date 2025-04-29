@@ -35,6 +35,12 @@ pipeline {
             steps {
                 script {
                     def repoDir = "${BASE_DIR}/${PROJECT_NAME}"
+                    dir(repoDir){
+                        script{
+                            echo "Compile project in: ${repoDir}"
+                            sh "mvn verify"
+                        }
+                    }
                     build(
                         job: 'scan-code',
                         parameters: [

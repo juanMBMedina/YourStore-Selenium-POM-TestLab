@@ -25,7 +25,7 @@ public class DriverFactory {
         return getDriver(browser, isHeadless, withCerts);
     }
 
-    public static WebDriver getDriver(String browser, Boolean isHeadless, Boolean withInsecureCerts) {
+    public static WebDriver getDriver(String browser, boolean isHeadless, Boolean withInsecureCerts) {
         if (driver == null) {
             switch (browser) {
                 case "firefox":

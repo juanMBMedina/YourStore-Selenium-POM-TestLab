@@ -59,7 +59,7 @@ pipeline {
         )
         string(
             name: 'DEFAULT_BRANCH',
-            defaultValue: 'main',
+            defaultValue: 'develop',
             description: 'Repository branch to checkout'
         )
     }
