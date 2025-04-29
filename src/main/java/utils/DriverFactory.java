@@ -72,8 +72,8 @@ public class DriverFactory {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         configureCommonOptions(firefoxOptions, isHeadless, withInsecureCerts);
-        //firefoxOptions.addArguments("-profile");
-        //firefoxOptions.addArguments(getUserDataDir("firefox"));
+        firefoxOptions.addArguments("-profile");
+        firefoxOptions.addArguments(getUserDataDir("firefox"));
         return new FirefoxDriver(firefoxOptions);
     }
 
