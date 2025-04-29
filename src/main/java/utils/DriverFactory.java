@@ -18,7 +18,8 @@ public class DriverFactory {
     private static final long MAX_TIME_WAIT = 10;
     private static WebDriver driver;
 
-    private DriverFactory() {}
+    private DriverFactory() {
+    }
 
     public static WebDriver getDriver() {
         if (driver == null) {
@@ -74,7 +75,8 @@ public class DriverFactory {
         FirefoxProfile profile = new FirefoxProfile();
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         configureCommonOptions(firefoxOptions, isHeadless, withInsecureCerts);
-        firefoxOptions.setProfile(profile);
+        firefoxOptions.addArguments("-profile");
+        firefoxOptions.addArguments(getUserDataDir("firefox"));
         return new FirefoxDriver(firefoxOptions);
     }
 
@@ -107,10 +109,11 @@ public class DriverFactory {
     private static void configureCommonOptions(FirefoxOptions options, boolean isHeadless, Boolean withInsecureCerts) {
         options.setAcceptInsecureCerts(withInsecureCerts);
         if (isHeadless) {
-            options.addArguments(HEADLESS_FLAG);
-            options.addArguments("--disable-gpu");
+            options.addArguments("--headless");
             options.addArguments("--no-sandbox");
+            options.addArguments("--disable-gpu");
             options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
         }
     }
 
