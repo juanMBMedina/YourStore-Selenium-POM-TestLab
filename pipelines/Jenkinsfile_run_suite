@@ -105,7 +105,7 @@ pipeline {
                         echo "Running Selenium tests for suite: ${params.SUITE} on browser: ${params.BROWSER}"
                         sh """
                           docker-compose -f docker-compose.selenium.yml run --rm selenium \
-                            mvn verify \
+                            mvn clean verify \
                               -Dbrowser=${params.BROWSER} \
                               -Dheadless=true \
                               -DwithoutCerts=true \
