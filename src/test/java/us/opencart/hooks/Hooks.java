@@ -22,6 +22,7 @@ public class Hooks {
 
     @Before
     public void setUp() {
+        DriverFactory.createDriver();
         WebDriver driver = DriverFactory.getDriver();
         driver.get(URL);
     }

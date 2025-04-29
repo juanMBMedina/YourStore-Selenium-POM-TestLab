@@ -24,48 +24,42 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libatk-bridge2.0-0 \
       libgtk-3-0 \
       ca-certificates \
+      dbus-x11 \
+      libasound2 \
     && rm -rf /var/lib/apt/lists/*
 
 # ------------------------------------
-# 3. Install Google Chrome
+# 3. Install Firefox and geckodriver
 # ------------------------------------
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub \
-      | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" \
-      > /etc/apt/sources.list.d/google.list \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends google-chrome-stable \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      firefox \
+      libdbus-glib-1-2 \
+      libxt6 \
+      libx11-xcb1 \
+      libxcomposite1 \
+      libxdamage1 \
+      libxrandr2 \
+      libpango-1.0-0 \
+      libatk-bridge2.0-0 \
+      libgtk-3-0 \
+      libcups2 \
+      libxss1 \
+      libdrm2 \
+      libxshmfence1 \
+      libxfixes3 \
+      libnss3 \
+      fonts-liberation \
+      libappindicator3-1 \
+      xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# ------------------------------------
-# 4. Install Firefox dependencies
-# ------------------------------------
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        firefox \
-        libdbus-glib-1-2 \
-        libxt6 \
-        libx11-xcb1 \
-        libxcomposite1 \
-        libxdamage1 \
-        libxrandr2 \
-        libasound2 \
-        libpango-1.0-0 \
-        libatk-bridge2.0-0 \
-        libgtk-3-0 \
-        libcups2 \
-        libxss1 \
-        libdrm2 \
-        libxshmfence1 \
-        libxfixes3 \
-        libnss3 \
-        fonts-liberation \
-        libappindicator3-1 \
-        xdg-utils \
-    && rm -rf /var/lib/apt/lists/*
+# Install geckodriver
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz \
+    && tar -xvzf geckodriver-v0.30.0-linux64.tar.gz \
+    && mv geckodriver /usr/local/bin/
 
 # ------------------------------------
-# 5. Install Microsoft Edge
+# 4. Install Microsoft Edge
 # ------------------------------------
 RUN curl https://packages.microsoft.com/keys/microsoft.asc \
       | gpg --dearmor > microsoft.gpg \
@@ -77,10 +71,11 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc \
     && rm microsoft.gpg \
     && rm -rf /var/lib/apt/lists/*
 
-# 6. Verify that mvn is present
+# 5. Verify that mvn is present
 RUN mvn --version
 
+# Set the working directory
 WORKDIR /app
 
-# (Optional) switch to non-root user
+# Optional: Switch to a non-root user
 # USER 1000:1000
