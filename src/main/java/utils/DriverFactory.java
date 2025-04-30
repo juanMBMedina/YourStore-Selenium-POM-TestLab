@@ -66,16 +66,13 @@ public class DriverFactory {
             options.addArguments("-headless");
             options.addArguments("--width=1920");
             options.addArguments("--height=1080");
-        } else {
-            options.addPreference("browser.fullscreen.autohide", true);
-            options.addPreference("browser.fullscreen.animateUp", 0);
         }
-        options.setAcceptInsecureCerts(insecureCerts);
+        options.addArguments("--no-remote");
         FirefoxProfile profile = new FirefoxProfile();
         options.setProfile(profile);
+        options.setAcceptInsecureCerts(insecureCerts);
         return new FirefoxDriver(options);
     }
-
 
     private static WebDriver setupEdgeDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.edgedriver().setup();
