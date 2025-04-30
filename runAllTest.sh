@@ -2,6 +2,7 @@
 
 mvn clean
 # Define env vars by default true:
+expor USE_GRID=true
 export HEADLESS=true
 export INSECURE_CERTS=true
 #Define Browser and TestSuite:
