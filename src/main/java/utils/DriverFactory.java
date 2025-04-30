@@ -9,6 +9,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 import java.time.Duration;
 
@@ -61,17 +62,20 @@ public class DriverFactory {
     private static WebDriver setupFirefoxDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("--no-sandbox");
         if (headless) {
             options.addArguments("-headless");
-            options.addArguments(WINDOW_SIZE);
-        }else{
+            options.addArguments("--width=1920");
+            options.addArguments("--height=1080");
+        } else {
             options.addPreference("browser.fullscreen.autohide", true);
             options.addPreference("browser.fullscreen.animateUp", 0);
         }
         options.setAcceptInsecureCerts(insecureCerts);
+        FirefoxProfile profile = new FirefoxProfile();
+        options.setProfile(profile);
         return new FirefoxDriver(options);
     }
+
 
     private static WebDriver setupEdgeDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.edgedriver().setup();
