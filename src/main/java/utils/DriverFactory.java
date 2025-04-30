@@ -44,7 +44,6 @@ public class DriverFactory {
     }
 
     private static WebDriver setupFirefoxDriver(boolean headless, boolean insecureCerts) {
-        WebDriverManager.
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
         if (headless) options.addArguments("-headless");
