@@ -86,8 +86,12 @@ RUN mvn --version
 # 7. Create the selenium user
 RUN useradd -m selenium
 
-# Set the working directory
+# 8. Change Permissions to working directory
 WORKDIR /app
+COPY pom.xml /app/
+RUN mvn clean
+RUN chown -R selenium:selenium /app
+RUN chmod -R 777 /app
 
 # Change to the selenium user
 USER selenium
