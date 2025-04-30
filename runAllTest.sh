@@ -1,6 +1,18 @@
 #!/bin/bash
 
 mvn clean
-mvn verify -Dbrowser=chrome -Dheadless=true -DwithoutCerts=true -Dtest=LoginRunner
-mvn verify -Dbrowser=firefox -Dheadless=true -DwithoutCerts=true -Dtest=RegisterRunner
-mvn verify -Dbrowser=edge -Dheadless=true -DwithoutCerts=true -Dtest=AddToCartRunner
+# Define env vars by default true:
+export HEADLESS=true
+export INSECURE_CERTS=true
+#Define Browser and TestSuite:
+export BROWSER=chrome
+export SUITE=LoginRunner
+mvn verify -Dtest=$SUITE
+#Define Browser and TestSuite:
+export BROWSER=firefox
+export SUITE=RegisterRunner
+mvn verify -Dtest=$SUITE
+#Define Browser and TestSuite:
+export BROWSER=edge
+export SUITE=AddToCartRunner
+mvn verify -Dtest=$SUITE

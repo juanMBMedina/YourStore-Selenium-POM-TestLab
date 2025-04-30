@@ -10,9 +10,16 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.time.Duration;
+
 public class DriverFactory {
+    private static final long MAX_TIME_WAIT = 10;
+    private static final String WINDOW_SIZE = "window-size=1920,1080";
     @Setter
     private static WebDriver driver;
+
+    private DriverFactory() {
+    }
 
     public static void createDriver() {
 
@@ -33,12 +40,18 @@ public class DriverFactory {
             default:
                 throw new IllegalArgumentException(String.format("This browser {%s} is doesn't available.", browser));
         }
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(MAX_TIME_WAIT));
     }
 
     private static WebDriver setupChromeDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        if (headless) options.addArguments("--headless=new");
+        if (headless) {
+            options.addArguments("--headless=new");
+            options.addArguments(WINDOW_SIZE);
+        } else {
+            options.addArguments("start-maximized");
+        }
         options.setAcceptInsecureCerts(insecureCerts);
         return new ChromeDriver(options);
     }
@@ -46,7 +59,13 @@ public class DriverFactory {
     private static WebDriver setupFirefoxDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
-        if (headless) options.addArguments("-headless");
+        if (headless) {
+            options.addArguments("-headless");
+            options.addArguments(WINDOW_SIZE);
+        }else{
+            options.addPreference("browser.fullscreen.autohide", true);
+            options.addPreference("browser.fullscreen.animateUp", 0);
+        }
         options.setAcceptInsecureCerts(insecureCerts);
         return new FirefoxDriver(options);
     }
@@ -54,7 +73,12 @@ public class DriverFactory {
     private static WebDriver setupEdgeDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.edgedriver().setup();
         EdgeOptions options = new EdgeOptions();
-        if (headless) options.addArguments("--headless=new");
+        if (headless) {
+            options.addArguments("--headless=new");
+            options.addArguments(WINDOW_SIZE);
+        } else {
+            options.addArguments("start-maximized");
+        }
         options.setAcceptInsecureCerts(insecureCerts);
         return new EdgeDriver(options);
     }
