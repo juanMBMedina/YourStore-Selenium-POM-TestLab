@@ -46,6 +46,8 @@ public class DriverFactory {
     private static WebDriver setupChromeDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         if (headless) {
             options.addArguments("--headless=new");
             options.addArguments(WINDOW_SIZE);
@@ -59,6 +61,7 @@ public class DriverFactory {
     private static WebDriver setupFirefoxDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
+        options.addArguments("--no-sandbox");
         if (headless) {
             options.addArguments("-headless");
             options.addArguments(WINDOW_SIZE);
@@ -73,6 +76,8 @@ public class DriverFactory {
     private static WebDriver setupEdgeDriver(boolean headless, boolean insecureCerts) {
         WebDriverManager.edgedriver().setup();
         EdgeOptions options = new EdgeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         if (headless) {
             options.addArguments("--headless=new");
             options.addArguments(WINDOW_SIZE);

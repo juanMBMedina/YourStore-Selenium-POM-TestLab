@@ -89,4 +89,4 @@ RUN useradd -m selenium
 # 8. Maven Clean
 WORKDIR /app
 COPY pom.xml /app/
-RUN mvn clean
+RUN mvn verify clean
