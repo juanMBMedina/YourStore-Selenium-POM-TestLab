@@ -71,11 +71,23 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc \
     && rm microsoft.gpg \
     && rm -rf /var/lib/apt/lists/*
 
-# 5. Verify that mvn is present
+# ------------------------------------
+# 5 Install Google Chrome
+# ------------------------------------
+RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
+
+# 6. Verify that mvn is present
 RUN mvn --version
+
+# 7. Create the selenium user
+RUN useradd -m selenium
 
 # Set the working directory
 WORKDIR /app
 
-# Optional: Switch to a non-root user
-# USER 1000:1000
+# Change to the selenium user
+USER selenium
