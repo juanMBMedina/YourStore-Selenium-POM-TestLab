@@ -10,8 +10,15 @@ services:
       - selenium_src:/app
       - ~/.m2:/root/.m2
     environment:
-      SUITE: LoginRunner
-      BROWSER: chrome
+        SUITE: ${SUITE}
+        BROWSER: ${BROWSER}
+        HEADLESS: ${HEADLESS:-true}
+        WITHOUT_CERTS: ${WITHOUT_CERTS:-true}
+    entrypoint: >
+      bash -c "
+        mvn clean verify
+        -Dtest=$${SUITE}
+      "
     networks:
       - project-network
 
