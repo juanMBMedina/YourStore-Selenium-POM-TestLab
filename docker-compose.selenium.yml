@@ -16,7 +16,7 @@ services:
         WITHOUT_CERTS: ${WITHOUT_CERTS:-true}
     entrypoint: >
       bash -c "
-        mvn clean verify -Dtest=$${SUITE}
+        xvfb-run -a mvn clean verify -Dtest=$${SUITE}
       "
     networks:
       - project-network
