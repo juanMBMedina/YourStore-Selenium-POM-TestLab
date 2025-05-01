@@ -1,6 +1,7 @@
 #!/bin/bash
-
-mvn clean
+# Up selenium grid.
+docker-compose -f docker-compose.selenium.yml up -d selenium-hub chrome-node firefox-node edge-node
+mvn clean verify
 # Define env vars by default true:
 expor USE_GRID=true
 export HEADLESS=true
@@ -17,3 +18,4 @@ mvn verify -Dtest=$SUITE
 export BROWSER=edge
 export SUITE=AddToCartRunner
 mvn verify -Dtest=$SUITE
+docker-compose -f docker-compose.selenium.yml down
