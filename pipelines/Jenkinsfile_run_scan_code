@@ -37,8 +37,8 @@ pipeline {
                     def repoDir = "${BASE_DIR}/${PROJECT_NAME}"
                     dir(repoDir){
                         script{
-                            echo "Compile project in: ${repoDir}"
-                            sh "mvn verify"
+                            echo "Compile an run all project in: ${repoDir}"
+                            sh "bash ./runAllTest.sh"
                         }
                     }
                     build(
