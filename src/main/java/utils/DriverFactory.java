@@ -21,7 +21,7 @@ public class DriverFactory {
 
     private static final long MAX_TIME_WAIT = 10;
     private static final String WINDOW_SIZE = "window-size=1920,1080";
-    private static final String SELENIUM_GRID_URL = "http://localhost:4444/wd/hub";
+    private static final String SELENIUM_GRID_URL = "http://selenium-hub:4444/wd/hub";
 
     @Setter
     private static WebDriver driver;
