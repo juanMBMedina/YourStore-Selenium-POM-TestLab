@@ -5,7 +5,7 @@ services:
     ports:
       - "4444:4444"
     networks:
-      - selenium-network
+      - project-network
 
   chrome-node:
     image: selenium/node-chrome:latest
@@ -17,7 +17,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     networks:
-      - selenium-network
+      - project-network
 
   firefox-node:
     image: selenium/node-firefox:latest
@@ -29,7 +29,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     networks:
-      - selenium-network
+      - project-network
 
   edge-node:
     image: selenium/node-edge:latest
@@ -41,7 +41,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     networks:
-      - selenium-network
+      - project-network
 
 networks:
   project-network:
