@@ -17,6 +17,8 @@ services:
       - cypress_src:/var/jenkins_home/tmp/cypress
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.m2:/root/.m2
+    environment:
+      JAVA_OPTS: "-Dhudson.model.DirectoryBrowserSupport.CSP="
     entrypoint: [ "/bin/bash", "-c", "/var/jenkins_home/setup-ssh.sh || echo 'SSH setup failed, continuing...' && /usr/bin/tini -- /usr/local/bin/jenkins.sh" ]
     depends_on:
       - sonarqube

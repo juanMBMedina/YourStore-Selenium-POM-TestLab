@@ -1,9 +1,8 @@
-def validateExist(directory, mssg = "The element \${directory} doesn't exist.") {
-    if (!fileExists(directory)) {
-        error mssg
+def validateExist(path, msg = "The element ${path} doesn't exist.") {
+    if (!fileExists(path)) {
+        error msg
     }
 }
-
 
 pipeline {
     agent any
@@ -65,7 +64,6 @@ pipeline {
                             docker-compose -f docker-compose.selenium.yml up -d selenium-hub ${params.BROWSER}-node
                             mvn clean verify -Dtest=${params.SUITE}
                             docker-compose -f docker-compose.selenium.yml down
-
                         """
                     }
                 }
@@ -74,34 +72,32 @@ pipeline {
 
         stage('Store Selenium Reports') {
             steps {
-                dir("${BASE_DIR}/${PROJECT_NAME}") {
+                dir("${BASE_DIR}/${PROJECT_NAME}/target/") {
                     script {
-                        def reportFolder = 'target/'
-                        def src = "./${reportFolder}"
-                        def now = sh(script: "date +\"%Y-%m-%d_%H-%M-%S\"", returnStdout: true).trim()
-                        def dest = "${REPORTS_DIR}/${params.PROJECT_NAME}/${reportFolder}execution_${now}"
-                        echo "Copying reports from ${src} to ${dest}"
-                        sh """
-                            mkdir -p ${dest}
-                            cd ${src}
-                            cp -r * ${dest}
-                        """
+                        validateExist('cucumber-reports.html', 'Cucumber report not found!')
+                        publishHTML(target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: true,
+                            reportDir: '.',
+                            reportFiles: 'cucumber-reports.html',
+                            reportName: "${params.PROJECT_NAME}-Cucumber-Report"
+                        ])
                     }
                 }
             }
         }
-
     }
 
     post {
         success {
-            echo 'Tests executed successfully. Selenium report is available.'
+            echo '✅ Tests executed successfully. Selenium report is available.'
         }
         failure {
-            echo 'Tests failed. Please check the execution logs and generated report.'
+            echo '❌ Tests failed. Please check the execution logs and generated report.'
         }
         always {
-            echo 'Pipeline execution finished.'
+            echo '📦 Pipeline execution finished.'
         }
     }
 }
