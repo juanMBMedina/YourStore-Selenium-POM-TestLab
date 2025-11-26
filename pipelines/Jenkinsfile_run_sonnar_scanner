@@ -10,7 +10,6 @@ def validateExist(directory, mssg='The element ${directory} doesn\'t exist.'){
     }
 }
 
-
 def copyFiles(originDir, finalDir){
     validateExist(originDir)
     validateExist(finalDir)

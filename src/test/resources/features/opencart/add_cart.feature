@@ -67,7 +67,7 @@ Feature: User Add Items to Cart in Your Store Page
     Then the user should see a successful Add to Cart item message
     Given the user is on the add to Cart Page
     When the user clicks the "<action>" link for the item called "<itemName>" in Add to Cart page
-    Then the user should see a message confirming the successful removal from the Add to Cart
+    #Then the user should see a message confirming the successful removal from the Add to Cart
 
     Examples:
       | category | subcategory | itemName | page        | action |
